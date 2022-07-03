@@ -1,0 +1,23 @@
+{
+  "name": "DataStructure",
+  "version": "1.0.0",
+  "description": "Data structure and Algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajasekark54/DataStructure.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rajasekark54/DataStructure/issues"
+  },
+  "homepage": "https://github.com/rajasekark54/DataStructure#readme",
+  "dependencies": {
+    "jest": "^28.1.2"
+  }
+}
