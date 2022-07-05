@@ -1,3 +1,6 @@
+//Infix to Postfix conversion
+//Postfix to Infix conversion
+
 const SYMBOLS = {
   AT: '@',
   OPEN_BRACKET: '(',
@@ -101,6 +104,33 @@ class InfixToPostFix extends Stack {
     return this.postfix.join('');
   }
 }
+
+class PostFixTOInfix extends Stack {
+  constructor() {
+    super();
+  }
+
+  isOperator(elm) {
+    return Object.values(SYMBOLS).includes(elm);
+  }
+
+  conversion(str) {
+    for (const elm of str.split('')) {
+      if (!this.isOperator(elm)) {
+        this.push(elm);
+      } else {
+        let operand2 = this.pop();
+        let operand1 = this.pop();
+
+        this.push('(' + operand1 + elm + operand2 + ')');
+      }
+      console.log(this.list);
+    }
+
+    return this.pop();
+  }
+}
+
 describe('InfixToPostFix', () => {
   let infToPos;
 
@@ -126,5 +156,28 @@ describe('InfixToPostFix', () => {
   test('4', () => {
     let res4 = infToPos.conversion('K+L-M*N+(O^P)*W/U/V*T+Q');
     expect(res4).toEqual('KL+MN*-OP^W*U/V/T*+Q+');
+  });
+});
+
+describe('PostFixTOInfix', () => {
+  let posToInfx;
+
+  beforeEach(() => {
+    posToInfx = new PostFixTOInfix();
+  });
+
+  test('1', () => {
+    let res1 = posToInfx.conversion('ABC*+D+');
+    expect(res1).toEqual('((A+(B*C))+D)');
+  });
+
+  test('2', () => {
+    let res2 = posToInfx.conversion('ab+c*');
+    expect(res2).toEqual('((a+b)*c)');
+  });
+
+  test('3', () => {
+    let res3 = posToInfx.conversion('ab+');
+    expect(res3).toEqual('(a+b)');
   });
 });
