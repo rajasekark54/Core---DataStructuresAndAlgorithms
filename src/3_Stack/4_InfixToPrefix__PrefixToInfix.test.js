@@ -103,6 +103,34 @@ class InfixToPreFix extends Stack {
     return revertRevers.join('');
   }
 }
+
+class PrefixToInfix extends Stack {
+  constructor() {
+    super();
+  }
+
+  isOperator(elm) {
+    return Object.values(SYMBOLS).includes(elm);
+  }
+
+  conversion(str) {
+    for (let i = str.length - 1; i >= 0; i--) {
+      const elm = str[i];
+      console.log(elm);
+      if (!this.isOperator(elm)) {
+        this.push(elm);
+      } else {
+        let opn1 = this.pop();
+        let opn2 = this.pop();
+
+        this.push('(' + opn1 + elm + opn2 + ')');
+      }
+    }
+
+    return this.pop();
+  }
+}
+
 describe('InfixToPostFix', () => {
   let infToPos;
 
@@ -128,5 +156,23 @@ describe('InfixToPostFix', () => {
   test('4', () => {
     let res4 = infToPos.conversion('K+L-M*N+(O^P)*W/U/V*T+Q');
     expect(res4).toEqual('++-+KL*MN*//*^OPWUVTQ');
+  });
+});
+
+describe('InfixToPostFix', () => {
+  let prefixToInfx;
+
+  beforeEach(() => {
+    prefixToInfx = new PrefixToInfix();
+  });
+
+  test('1', () => {
+    let res1 = prefixToInfx.conversion('++A*BCD');
+    expect(res1).toEqual('((A+(B*C))+D)');
+  });
+
+  test('3', () => {
+    let res3 = prefixToInfx.conversion('+ab');
+    expect(res3).toEqual('(a+b)');
   });
 });
