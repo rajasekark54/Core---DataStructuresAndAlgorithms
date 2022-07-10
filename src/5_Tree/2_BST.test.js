@@ -107,6 +107,31 @@ class BST {
     this.postOrder(node.right);
     this.postOrderList.push(node.val);
   }
+
+  //BFS
+  levelOrder() {
+    if (!this.root) {
+      return null;
+    }
+
+    let bfsList = [];
+    let queue = [this.root];
+
+    while (queue.length > 0) {
+      let node = queue.shift();
+      bfsList.push(node.val);
+
+      if (node.left) {
+        queue.push(node.left);
+      }
+
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+
+    return bfsList;
+  }
 }
 
 describe('BST', () => {
@@ -162,7 +187,7 @@ describe('BST', () => {
     expect(bst.root).toEqual(node1);
   });
 
-  test.only('Inorder PreOder PostOrder', () => {
+  test('Inorder PreOder PostOrder and Levelorder', () => {
     let bst = new BST();
 
     bst.insert(8);
@@ -174,15 +199,14 @@ describe('BST', () => {
     bst.insert(7);
 
     bst.inOrder();
-    console.log('------------', bst.inOrderList);
     expect(bst.inOrderList).toEqual([1, 3, 4, 6, 7, 8, 10]);
 
     bst.preOrder();
-    console.log('------------', bst.preOrderList);
     expect(bst.preOrderList).toEqual([8, 3, 1, 6, 4, 7, 10]);
 
     bst.postOrder();
-    console.log('------------', bst.postOrderList);
     expect(bst.postOrderList).toEqual([1, 4, 7, 6, 3, 10, 8]);
+
+    expect(bst.levelOrder()).toEqual([8, 3, 10, 1, 6, 4, 7]);
   });
 });
