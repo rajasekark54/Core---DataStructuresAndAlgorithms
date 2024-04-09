@@ -20,5 +20,8 @@
   "homepage": "https://github.com/rajasekark54/DataStructure#readme",
   "dependencies": {
     "jest": "^28.1.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12"
   }
 }
