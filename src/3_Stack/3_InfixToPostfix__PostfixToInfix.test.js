@@ -49,21 +49,22 @@ class InfixToPostFix extends Stack {
   }
 
   precedence(elm) {
-    if (
-      SYMBOLS.AT === elm ||
-      SYMBOLS.OPEN_BRACKET === elm ||
-      SYMBOLS.CLOSE_BRACKET === elm
-    ) {
-      return 1;
-    } else if (SYMBOLS.PLUS === elm || SYMBOLS.MINUS === elm) {
-      return 2;
-    } else if (SYMBOLS.MULTIPLE === elm || SYMBOLS.DIVID === elm) {
-      return 3;
-    } else if (SYMBOLS.POWER === elm) {
-      return 4;
+    switch (elm) {
+      case SYMBOLS.AT:
+      case SYMBOLS.OPEN_BRACKET:
+      case SYMBOLS.CLOSE_BRACKET:
+        return 1;
+      case SYMBOLS.PLUS:
+      case SYMBOLS.MINUS:
+        return 2;
+      case SYMBOLS.MULTIPLE:
+      case SYMBOLS.DIVID:
+        return 3;
+      case SYMBOLS.POWER:
+        return 4;
+      default:
+        return 0;
     }
-
-    return 0;
   }
 
   conversion(str) {
@@ -78,19 +79,17 @@ class InfixToPostFix extends Stack {
             this.postfix.push(this.pop());
           }
           this.pop();
+        } else if (this.precedence(elm) > this.precedence(this.peek())) {
+          this.push(elm);
         } else {
-          if (this.precedence(elm) > this.precedence(this.peek())) {
-            this.push(elm);
-          } else {
-            while (
-              this.top > -1 &&
-              this.precedence(elm) <= this.precedence(this.peek())
-            ) {
-              this.postfix.push(this.pop());
-            }
-
-            this.push(elm);
+          while (
+            this.top > -1 &&
+            this.precedence(elm) <= this.precedence(this.peek())
+          ) {
+            this.postfix.push(this.pop());
           }
+
+          this.push(elm);
         }
       } else {
         this.postfix.push(elm);
@@ -124,7 +123,6 @@ class PostFixTOInfix extends Stack {
 
         this.push('(' + operand1 + elm + operand2 + ')');
       }
-      console.log(this.list);
     }
 
     return this.pop();

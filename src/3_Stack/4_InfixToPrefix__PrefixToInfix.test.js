@@ -116,7 +116,7 @@ class PrefixToInfix extends Stack {
   conversion(str) {
     for (let i = str.length - 1; i >= 0; i--) {
       const elm = str[i];
-      console.log(elm);
+
       if (!this.isOperator(elm)) {
         this.push(elm);
       } else {

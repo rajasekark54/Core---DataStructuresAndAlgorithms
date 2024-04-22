@@ -14,22 +14,50 @@ class BST {
     this.postOrderList = [];
   }
 
-  insertHelper(node, val) {
+  /* insertHelperIterative(node, val) {
+    let newNode = new Node(val);
+
+    if (!node) return newNode;
+    let current = node;
+
+    while (current) {
+      if (current.val < val) {
+        if (!current.right) {
+          current.right = newNode;
+          break;
+        }
+        current = current.right;
+      } else {
+        if (!current.left) {
+          current.left = newNode;
+          break;
+        }
+        current = current.left;
+      }
+    }
+    return node;
+  } */
+
+  insertHelperRecursive(node, val) {
     if (!node || node === null) {
       return new Node(val);
     }
 
     if (node.val < val) {
-      node.right = this.insertHelper(node.right, val);
+      node.right = this.insertHelperRecursive(node.right, val);
     } else if (node.val > val) {
-      node.left = this.insertHelper(node.left, val);
+      node.left = this.insertHelperRecursive(node.left, val);
     }
 
     return node;
   }
 
   insert(val) {
-    this.root = this.insertHelper(this.root, val);
+    // Approach 1
+    this.root = this.insertHelperRecursive(this.root, val);
+
+    //Approach 2
+    // this.root = this.insertHelperIterative(this.root, val);
   }
 
   removeHelper(node, val) {
@@ -50,12 +78,10 @@ class BST {
         node.right = this.removeHelper(node.right, tmpNode.val);
         return node;
       }
-    } else {
-      if (node.val < val) {
-        node.right = this.removeHelper(node.right, val);
-      } else if (node.val > val) {
-        node.left = this.removeHelper(node.left, val);
-      }
+    } else if (node.val < val) {
+      node.right = this.removeHelper(node.right, val);
+    } else if (node.val > val) {
+      node.left = this.removeHelper(node.left, val);
     }
 
     return node;
@@ -76,40 +102,89 @@ class BST {
   }
 
   //Left root right
-  inOrder(node = this.root) {
+  inOrderTraversalRecursive(node = this.root) {
     if (!node) {
       return true;
     }
 
-    this.inOrder(node.left);
+    this.inOrderTraversalRecursive(node.left);
     this.inOrderList.push(node.val);
-    this.inOrder(node.right);
+    this.inOrderTraversalRecursive(node.right);
   }
 
+  /* inOrderTraversalIterative(currentNode = this.root) {
+    if (!currentNode) return null;
+
+    let stack = [];
+
+    while (currentNode || stack.length) {
+      while (currentNode) {
+        stack.push(currentNode);
+        currentNode = currentNode.left;
+      }
+
+      currentNode = stack.pop();
+      this.inOrderList.push(currentNode.val);
+      currentNode = currentNode.right;
+    }
+  } */
+
   //root Left right
-  preOrder(node = this.root) {
+  preOrderTraversalRecursive(node = this.root) {
     if (!node) {
       return null;
     }
 
     this.preOrderList.push(node.val);
-    this.preOrder(node.left);
-    this.preOrder(node.right);
+    this.preOrderTraversalRecursive(node.left);
+    this.preOrderTraversalRecursive(node.right);
   }
 
+  /* preOrderTraversalIterative(currentNode = this.root) {
+    let stack = [];
+
+    stack.push(currentNode);
+    while (stack.length) {
+      currentNode = stack.pop();
+      this.preOrderList.push(currentNode.val);
+
+      if (currentNode.right) stack.push(currentNode.right);
+      if (currentNode.left) stack.push(currentNode.left);
+    }
+  } */
+
   // left right root
-  postOrder(node = this.root) {
+  postOrderTraversalRecursive(node = this.root) {
     if (!node) {
       return null;
     }
 
-    this.postOrder(node.left);
-    this.postOrder(node.right);
+    this.postOrderTraversalRecursive(node.left);
+    this.postOrderTraversalRecursive(node.right);
     this.postOrderList.push(node.val);
   }
 
+  /* postOrderTraversalIterative(currentNode = this.root) {
+    if (!currentNode) return null;
+
+    let stack = [currentNode];
+
+    while (stack.length) {
+      currentNode = stack.pop();
+      this.postOrderList.unshift(currentNode.val);
+
+      if (currentNode.left) {
+        stack.push(currentNode.left);
+      }
+
+      if (currentNode.right) {
+        stack.push(currentNode.right);
+      }
+    }
+  } */
+
   //BFS
-  levelOrder() {
+  levelOrderTraversal() {
     if (!this.root) {
       return null;
     }
@@ -198,15 +273,15 @@ describe('BST', () => {
     bst.insert(4);
     bst.insert(7);
 
-    bst.inOrder();
+    bst.inOrderTraversalRecursive();
     expect(bst.inOrderList).toEqual([1, 3, 4, 6, 7, 8, 10]);
 
-    bst.preOrder();
+    bst.preOrderTraversalRecursive();
     expect(bst.preOrderList).toEqual([8, 3, 1, 6, 4, 7, 10]);
 
-    bst.postOrder();
+    bst.postOrderTraversalRecursive();
     expect(bst.postOrderList).toEqual([1, 4, 7, 6, 3, 10, 8]);
 
-    expect(bst.levelOrder()).toEqual([8, 3, 10, 1, 6, 4, 7]);
+    expect(bst.levelOrderTraversal()).toEqual([8, 3, 10, 1, 6, 4, 7]);
   });
 });

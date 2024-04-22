@@ -17,33 +17,34 @@ class MergeSort {
     return list;
   }
 
-  merge(list, lb, mid, ub) {
-    let i = lb;
-    let j = mid + 1;
-    let arr = [];
+  merge(array, lb, mid, ub) {
+    let result = [];
+    let left = lb;
+    let right = mid + 1;
 
-    while (i <= mid && j <= ub) {
-      if (list[i] < list[j]) {
-        arr.push(list[i]);
-        i++;
+    while (left <= mid && right <= ub) {
+      if (array[left] < array[right]) {
+        result.push(array[left]);
+        left++;
       } else {
-        arr.push(list[j]);
-        j++;
+        result.push(array[right]);
+        right++;
       }
     }
 
-    while (i <= mid) {
-      arr.push(list[i]);
-      i++;
+    while (left <= mid) {
+      result.push(array[left]);
+      left++;
     }
 
-    while (j <= ub) {
-      arr.push(list[j]);
-      j++;
+    while (right <= ub) {
+      result.push(array[right]);
+      right++;
     }
 
-    for (let i = 0; i < arr.length; i++) {
-      list[lb + i] = arr[i];
+    for (const val of result) {
+      array[lb] = val;
+      lb++;
     }
   }
 }

@@ -118,14 +118,13 @@ class DoublyLinkedList {
     let current = this.head;
 
     while (current) {
-      console.log(current.val);
       current = current.next;
     }
   }
 }
 
-describe("Doubly Linked List", () => {
-  test("Insert At First", () => {
+describe('Doubly Linked List', () => {
+  test('Insert At First', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtFirst(2);
@@ -139,7 +138,7 @@ describe("Doubly Linked List", () => {
     expect(dll.head).toEqual(node1);
   });
 
-  test("Insert At Last", () => {
+  test('Insert At Last', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtLast(1);
@@ -153,7 +152,7 @@ describe("Doubly Linked List", () => {
     expect(dll.head).toEqual(node1);
   });
 
-  test("Insert At Last", () => {
+  test('Insert At Pos', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtPos(1);
@@ -171,7 +170,7 @@ describe("Doubly Linked List", () => {
     expect(dll.head).toEqual(node1);
   });
 
-  test("Delete At First", () => {
+  test('Delete At First', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtLast(2);
@@ -184,11 +183,10 @@ describe("Doubly Linked List", () => {
 
     let node1 = new Node(2);
 
-    console.log(dll.head);
     expect(dll.head).toEqual(node1);
   });
 
-  test("Delete At Last", () => {
+  test('Delete At Last', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtLast(1);
@@ -202,7 +200,7 @@ describe("Doubly Linked List", () => {
     expect(dll.head).toEqual(null);
   });
 
-  test("Delete At Pos", () => {
+  test('Delete At Pos', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtLast(1);
@@ -223,7 +221,7 @@ describe("Doubly Linked List", () => {
     expect(dll.head).toEqual(node2);
   });
 
-  test("Delete At Last", () => {
+  test('Traversal', () => {
     let dll = new DoublyLinkedList();
 
     dll.insertAtLast(1);

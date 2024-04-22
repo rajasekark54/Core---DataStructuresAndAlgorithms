@@ -41,7 +41,7 @@ class CircularQueue {
       let i = this.front;
       while (i != this.rear) {
         console.log(this.list[i]);
-        i = this.nextIndex(i + 1);
+        i = this.nextIndex(i);
       }
     }
   }
@@ -86,7 +86,7 @@ describe('Circular Queue', () => {
     expect(que.dequeue()).toEqual('Underflow');
   });
 
-  test('Peek', () => {
+  test('Traversal', () => {
     que.enqueue(1);
     que.enqueue(2);
     que.enqueue(3);

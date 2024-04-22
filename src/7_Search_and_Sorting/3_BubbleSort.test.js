@@ -12,7 +12,7 @@ worst case - o(n^2) [if we are sorting it from asc to desc]
 
 */
 
-function BubbleSort(list) {
+function bubbleSort(list) {
   let n = list.length;
   let isArrSorted;
 
@@ -41,7 +41,7 @@ const array = [15, 16, 6, 8, 5];
 
 describe('Bubble Sort', () => {
   test('1', () => {
-    expect(BubbleSort([15, 16, 6, 8, 5])).toEqual([5, 6, 8, 15, 16]);
-    expect(BubbleSort([16, 14, 5, 6, 8])).toEqual([5, 6, 8, 14, 16]);
+    expect(bubbleSort([15, 16, 6, 8, 5])).toEqual([5, 6, 8, 15, 16]);
+    expect(bubbleSort([16, 14, 5, 6, 8])).toEqual([5, 6, 8, 14, 16]);
   });
 });
