@@ -37,7 +37,6 @@ class QueueUsingLinkedList {
 
   peek() {
     if (this.front != null) {
-      console.log("peek =>", this.front.data);
       return this.front.data;
     }
   }
@@ -45,7 +44,6 @@ class QueueUsingLinkedList {
   display() {
     let tmp = this.front;
     while (tmp != null) {
-      console.log("Display ==>", tmp.data);
       tmp = tmp.next;
     }
   }

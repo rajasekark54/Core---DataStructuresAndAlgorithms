@@ -83,23 +83,14 @@ class DoublyCircularLinkedList {
   }
 
   deleteAtLast() {
-    if (!this.head) {
+    if (!this.head || this.head === this.tail) {
+      this.head = this.tail = null;
       return;
     }
 
-    if (this.head === this.tail) {
-      this.head = this.tail = null;
-    } else {
-      let current = this.head;
-
-      while (current.next !== this.tail) {
-        current = current.next;
-      }
-
-      current.next = this.tail.next;
-      this.tail = current;
-      this.head.prv = this.tail;
-    }
+    this.tail = this.tail.prv;
+    this.tail.next = this.head;
+    this.head.prv = this.tail;
   }
 
   deleteAtPos(pos) {

@@ -39,3 +39,9 @@ tree.insert(4);
 tree.printResultData();
 tree.insert(3);
 tree.printResultData();
+
+describe('BinaryTree', () => {
+  test('1', () => {
+    expect(1).toEqual(1);
+  });
+});

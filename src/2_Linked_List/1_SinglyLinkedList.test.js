@@ -171,7 +171,6 @@ describe('Singly Linked List', () => {
         next: null,
       },
     };
-    console.log(JSON.stringify(sll.head));
     expect(sll.head).toEqual(obj);
 
     sll.insertAtPos(2, 1);
